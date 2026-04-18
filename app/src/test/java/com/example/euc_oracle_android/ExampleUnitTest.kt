@@ -1,4 +1,4 @@
-package com.example.euc_oracleandroid
+package com.example.euc_oracle_android
 
 import org.junit.Test
 

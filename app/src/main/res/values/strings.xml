@@ -1,3 +1,49 @@
 <resources>
-    <string name="app_name">euc_oracle.Android</string>
+    <string name="app_name">MonoWheel Config</string>
+
+    <!-- Scan screen -->
+    <string name="no_devices_found">No devices found</string>
+    <string name="pull_to_refresh">Pull to refresh</string>
+    <string name="scanning">Scanning...</string>
+    <string name="connecting">Connecting...</string>
+
+    <!-- Config screen -->
+    <string name="config_title">Configuration</string>
+    <string name="save_to_flash">Save to Flash</string>
+    <string name="load_from_flash">Load from Flash</string>
+    <string name="reset_defaults">Reset to Defaults</string>
+    <string name="enabled">Enabled</string>
+    <string name="value">Value</string>
+    <string name="color">Color</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
+    <string name="settings_saved">Settings saved successfully</string>
+    <string name="settings_loaded">Settings loaded successfully</string>
+    <string name="settings_reset">Settings reset to defaults</string>
+    <string name="error_connection">Connection error</string>
+    <string name="error_read">Failed to read data</string>
+    <string name="error_write">Failed to write data</string>
+
+    <!-- Register types -->
+    <string name="type_uint8">8-bit unsigned integer</string>
+    <string name="type_int8">8-bit signed integer</string>
+    <string name="type_uint16">16-bit unsigned integer</string>
+    <string name="type_int16">16-bit signed integer</string>
+    <string name="type_uint32">32-bit unsigned integer</string>
+    <string name="type_int32">32-bit signed integer</string>
+    <string name="type_float">Fixed-point 8.8</string>
+    <string name="type_string">String</string>
+    <string name="type_boolean">Boolean</string>
+    <string name="type_enum">Enumeration</string>
+    <string name="type_color">RGBW Color</string>
+    <string name="type_mac">MAC Address</string>
+
+    <!-- Confirmations -->
+    <string name="confirm_reset_title">Reset to Defaults</string>
+    <string name="confirm_reset_message">Are you sure you want to reset all settings to factory defaults?</string>
+    <string name="confirm_save_title">Save Settings</string>
+    <string name="confirm_save_message">Save current settings to flash memory?</string>
+    <string name="confirm_load_title">Load Settings</string>
+    <string name="confirm_load_message">Load previously saved settings from flash memory?</string>
 </resources>
