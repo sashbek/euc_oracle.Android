@@ -1,14 +1,17 @@
 package com.example.euc_oracle_android.ui.config
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.euc_oracle_android.R
 import com.example.euc_oracle_android.data.ble.BleManager
@@ -45,7 +48,6 @@ class ConfigFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("ConfigFragment", "onViewCreated")
 
-        // Исправлено: передаем context в фабрику
         val factory = ConfigViewModelFactory(requireContext(), bleManager)
         viewModel = ViewModelProvider(this, factory).get(ConfigViewModel::class.java)
 
@@ -65,8 +67,11 @@ class ConfigFragment : Fragment() {
         binding.toolbar.apply {
             title = "Configuration"
             inflateMenu(R.menu.config_menu)
+            // Показываем кнопку "Назад"
+            setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
             setNavigationOnClickListener {
-                requireActivity().onBackPressed()
+                // Отключаемся от устройства и возвращаемся
+                disconnectAndGoBack()
             }
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
@@ -93,6 +98,17 @@ class ConfigFragment : Fragment() {
                 Log.d("ConfigFragment", "Device info updated: $it")
             }
         }
+    }
+
+    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
+    private fun disconnectAndGoBack() {
+        Log.d("ConfigFragment", "Disconnecting and going back...")
+
+        // Отключаемся от устройства
+        bleManager.disconnect()
+
+        // Возвращаемся к сканированию
+        parentFragmentManager.popBackStack()
     }
 
     private fun setupRecyclerView() {
@@ -161,6 +177,13 @@ class ConfigFragment : Fragment() {
                 viewModel.clearError()
             }
         }
+        bleManager.connectionState.asLiveData().observe(viewLifecycleOwner) { state ->
+            if (state == com.example.euc_oracle_android.data.ble.ConnectionState.DISCONNECTED) {
+                // Если устройство отключилось, возвращаемся к сканированию
+                Snackbar.make(binding.root, "Device disconnected", Snackbar.LENGTH_SHORT).show()
+                parentFragmentManager.popBackStack()
+            }
+        }
     }
 
     private fun showEditDialog(register: Register) {
@@ -185,6 +208,19 @@ class ConfigFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Не отключаемся здесь, чтобы сохранить соединение при повороте экрана
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Отключаемся только при полном уничтожении фрагмента
+        if (isRemoving) {
+            bleManager.disconnect()
+        }
     }
 }
 

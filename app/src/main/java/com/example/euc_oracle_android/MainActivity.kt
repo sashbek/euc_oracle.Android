@@ -4,10 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.euc_oracle_android.data.ble.BleManager
 import com.example.euc_oracle_android.databinding.ActivityMainBinding
 import com.example.euc_oracle_android.ui.config.ConfigFragment
 import com.example.euc_oracle_android.ui.scan.ScanFragment
@@ -15,6 +18,7 @@ import com.example.euc_oracle_android.ui.scan.ScanFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bleManager: BleManager
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -25,24 +29,52 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        bleManager = BleManager.getInstance(this)
+
         // Настройка обработчика back press
         onBackPressedDispatcher.addCallback(this) {
-            if (supportFragmentManager.backStackEntryCount > 0) {
-                supportFragmentManager.popBackStack()
-            } else {
-                finish()
-            }
+            handleBackPressed()
         }
 
         if (hasRequiredPermissions()) {
             showScanFragment()
         } else {
             requestPermissions()
+        }
+    }
+
+    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
+    private fun handleBackPressed() {
+        // Проверяем, какой фрагмент сейчас активен
+        val currentFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
+
+        when (currentFragment) {
+            is ConfigFragment -> {
+                // Если мы в ConfigFragment, отключаемся от устройства
+                Log.d("MainActivity", "Back pressed in ConfigFragment, disconnecting...")
+                bleManager.disconnect()
+                // Возвращаемся к ScanFragment
+                supportFragmentManager.popBackStack()
+            }
+            is ScanFragment -> {
+                // Если мы в ScanFragment, выходим из приложения
+                Log.d("MainActivity", "Back pressed in ScanFragment, finishing...")
+                finish()
+            }
+            else -> {
+                // По умолчанию - стандартное поведение
+                if (supportFragmentManager.backStackEntryCount > 0) {
+                    supportFragmentManager.popBackStack()
+                } else {
+                    finish()
+                }
+            }
         }
     }
 
@@ -91,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     fun showConfigFragment() {
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id, ConfigFragment())
-            .addToBackStack(null)
+            .addToBackStack("config")
             .commit()
     }
 }

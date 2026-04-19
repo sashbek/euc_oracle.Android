@@ -81,6 +81,7 @@ class BleManager private constructor(
                     gatt.discoverServices()
                 }
                 BluetoothProfile.STATE_DISCONNECTED -> {
+                    Log.d("BleManager", "Disconnected")
                     _connectionState.value = ConnectionState.DISCONNECTED
                     cleanup()
                 }
@@ -236,11 +237,27 @@ class BleManager private constructor(
         }
     }
 
+    private suspend fun waitForCharacteristics(timeoutMs: Long = 5000): Boolean {
+        var attempts = 0
+        while (writeCharacteristic == null || readCharacteristic == null) {
+            if (attempts++ > timeoutMs / 100) {
+                Log.e("BleManager", "Characteristics not ready after timeout")
+                return false
+            }
+            delay(100)
+        }
+        return true
+    }
+
     /**
      * Чтение регистров с поддержкой чанков
      */
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     suspend fun readRegister(startAddress: Int, size: Int): Result<ByteArray> {
+        if (!waitForCharacteristics()) {
+            return Result.failure(Exception("Characteristics not ready"))
+        }
+
         val wChar = writeCharacteristic
         val rChar = readCharacteristic
 
@@ -430,12 +447,13 @@ class BleManager private constructor(
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     fun disconnect() {
+        Log.d("BleManager", "Disconnecting...")
         bluetoothGatt?.disconnect()
-        cleanup()
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     private fun cleanup() {
+        Log.d("BleManager", "Cleanup")
         bluetoothGatt?.close()
         bluetoothGatt = null
         writeCharacteristic = null
@@ -443,5 +461,7 @@ class BleManager private constructor(
         servicesDiscoveredDeferred = null
         dataReadyDeferred = null
         readCharDeferred = null
+        _deviceInfo.value = null
+        _connectionState.value = ConnectionState.DISCONNECTED
     }
 }

@@ -26,6 +26,7 @@ class ScanFragment : Fragment() {
     private lateinit var viewModel: ScanViewModel
     private lateinit var adapter: DeviceAdapter
     private lateinit var bleManager: BleManager
+    private var isConnecting = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,9 @@ class ScanFragment : Fragment() {
         setupSwipeRefresh()
         observeState()
 
-        viewModel.startScan()
+        if (bleManager.connectionState.value != ConnectionState.CONNECTED && !isConnecting) {
+            viewModel.startScan()
+        }
     }
 
     private fun setupToolbar() {
@@ -83,6 +86,7 @@ class ScanFragment : Fragment() {
         }
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
     private fun observeState() {
         viewModel.devices.observe(viewLifecycleOwner) { devices ->
             adapter.submitList(devices)
@@ -94,20 +98,33 @@ class ScanFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = isScanning
         }
 
-        viewModel.connectionState.observe(viewLifecycleOwner) { state ->
+        viewModel.connectionState.observe(viewLifecycleOwner) @androidx.annotation.RequiresPermission(
+            android.Manifest.permission.BLUETOOTH_SCAN
+        ) { state ->
             Log.d("ScanFragment", "Connection state: $state")
             when (state) {
                 ConnectionState.CONNECTING -> {
                     binding.progressBar.isVisible = true
+                    isConnecting = true
                 }
                 ConnectionState.CONNECTED -> {
                     Log.d("ScanFragment", "CONNECTED! Showing config fragment...")
                     binding.progressBar.isVisible = false
+                    isConnecting = false
                     (requireActivity() as MainActivity).showConfigFragment()
+                }
+                ConnectionState.DISCONNECTED -> {
+                    isConnecting = false
+                    binding.progressBar.isVisible = false
+                    // Перезапускаем сканирование при отключении
+                    if (isResumed) {
+                        viewModel.startScan()
+                    }
                 }
                 ConnectionState.ERROR -> {
                     Log.e("ScanFragment", "Connection ERROR")
                     binding.progressBar.isVisible = false
+                    isConnecting = false
                 }
                 else -> {
                     binding.progressBar.isVisible = false
@@ -121,6 +138,22 @@ class ScanFragment : Fragment() {
                 viewModel.clearError()
             }
         }
+    }
+
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
+    override fun onResume() {
+        super.onResume()
+        // Проверяем состояние подключения
+        if (bleManager.connectionState.value != ConnectionState.CONNECTED) {
+            // Только если не подключены, начинаем сканирование
+            viewModel.startScan()
+        }
+    }
+
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopScan()
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
