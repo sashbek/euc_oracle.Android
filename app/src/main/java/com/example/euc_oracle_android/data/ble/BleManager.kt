@@ -209,7 +209,7 @@ class BleManager private constructor(
             _connectionState.value = ConnectionState.CONNECTING
             servicesDiscoveredDeferred = CompletableDeferred()
 
-            withTimeout(15000) {
+            withTimeout(3000) {
                 val device = bluetoothAdapter?.getRemoteDevice(address)
                 bluetoothGatt = device?.connectGatt(context, false, gattCallback)
 
@@ -398,10 +398,11 @@ class BleManager private constructor(
         val deviceTypeByte = deviceTypeData?.getOrElse(0) { 0xFF.toByte() } ?: 0xFF.toByte()
         Log.d("BleManager", "Device type byte: 0x${"%02X".format(deviceTypeByte)}")
         val deviceType = DeviceType.fromByte(deviceTypeByte)
+        //Log.d("BleManager", "Device type: 0x${"%02X".format(deviceType)}")
 
         // Читаем системные регистры (0x10 - 0x2F)
-        val systemData = readRegister(0x10, 32).getOrThrow()
-        Log.d("BleManager", "System data: ${systemData.joinToString(" ") { "%02X".format(it) }}")
+        val systemData = readRegister(0x10, 48).getOrThrow()
+        //Log.d("BleManager", "System data: ${systemData.joinToString(" ") { "%02X".format(it) }}")
 
         // DEVICE_ID: 0x10-0x13 (смещение 0-3 от начала systemData)
         val deviceId = systemData.copyOfRange(0, 4).joinToString("") { "%02X".format(it) }

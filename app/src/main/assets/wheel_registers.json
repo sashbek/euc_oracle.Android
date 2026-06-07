@@ -10,7 +10,7 @@
       "persistent": false,
       "name": "READ_ADDR_L",
       "type": "UINT8",
-      "description": "Младший байт адреса для чтения */ \\",
+      "description": "Младший байт адреса для чтения \\",
       "hidden": true
     },
     {
@@ -21,7 +21,7 @@
       "persistent": false,
       "name": "READ_ADDR_H",
       "type": "UINT8",
-      "description": "Старший байт адреса для чтения */ \\",
+      "description": "Старший байт адреса для чтения \\",
       "hidden": true
     },
     {
@@ -32,7 +32,7 @@
       "persistent": false,
       "name": "READ_SIZE",
       "type": "UINT8",
-      "description": "Размер данных для чтения */ \\",
+      "description": "Размер данных для чтениe \\",
       "hidden": true
     },
     {
@@ -43,7 +43,7 @@
       "persistent": false,
       "name": "CMD",
       "type": "UINT8",
-      "description": "Команда управления */ \\",
+      "description": "Команда управления \\",
       "hidden": true
     },
     {
@@ -54,7 +54,7 @@
       "persistent": false,
       "name": "STATUS",
       "type": "UINT8",
-      "description": "Статус последней операции */ \\",
+      "description": "Статус последней операции \\",
       "hidden": true
     },
     {
@@ -65,7 +65,7 @@
       "persistent": false,
       "name": "VERSION",
       "type": "UINT8",
-      "description": "Версия протокола */ \\"
+      "description": "Версия протокола \\"
     },
     {
       "address": 6,
@@ -75,7 +75,7 @@
       "persistent": false,
       "name": "DEVICE_TYPE",
       "type": "UINT8",
-      "description": "Тип устройства (0=WHEEL, 1=LED) */ \\"
+      "description": "Тип устройства (0=WHEEL, 1=EXT) \\"
     },
     {
       "address": 16,
@@ -86,7 +86,7 @@
       "name": "DEVICE_ID",
       "type": "UINT32",
       "group": "System",
-      "description": "Уникальный идентификатор устройства (MAC) */ \\"
+      "description": "Уникальный идентификатор устройства (MAC) \\"
     },
     {
       "address": 20,
@@ -97,18 +97,7 @@
       "name": "FW_VERSION",
       "type": "UINT32",
       "group": "System",
-      "description": "Версия прошивки (major.minor.patch.build) */ \\"
-    },
-    {
-      "address": 24,
-      "size": 2,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "HW_REVISION",
-      "type": "UINT16",
-      "group": "System",
-      "description": "Ревизия аппаратуры */ \\"
+      "description": "Версия прошивки (major.minor.patch.build) \\"
     },
     {
       "address": 26,
@@ -119,51 +108,7 @@
       "name": "BOOT_COUNT",
       "type": "UINT32",
       "group": "System",
-      "description": "Счетчик загрузок устройства */ \\"
-    },
-    {
-      "address": 30,
-      "size": 4,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "UPTIME",
-      "type": "UINT32",
-      "group": "System",
-      "description": "Время работы с последней загрузки */ \\",
-      "unit": "s"
-    },
-    {
-      "address": 34,
-      "size": 4,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "FREE_HEAP",
-      "type": "UINT32",
-      "group": "System",
-      "description": "Свободная оперативная память */ \\",
-      "unit": "bytes"
-    },
-    {
-      "address": 38,
-      "size": 1,
-      "readable": true,
-      "writable": true,
-      "persistent": true,
-      "name": "LOG_LEVEL",
-      "type": "ENUM",
-      "group": "System",
-      "description": "Уровень логирования */ \\",
-      "defaultValue": 3,
-      "enumValues": {
-        "0": "NONE",
-        "1": "ERROR",
-        "2": "WARN",
-        "3": "INFO",
-        "4": "DEBUG",
-        "5": "VERBOSE"
-      }
+      "description": "Счетчик загрузок устройства \\"
     },
     {
       "address": 39,
@@ -174,7 +119,7 @@
       "name": "DEVICE_NAME",
       "type": "STRING",
       "group": "System",
-      "description": "Имя устройства */ \\",
+      "description": "Имя устройства \\",
       "defaultValue": "MonoWheel"
     },
     {
@@ -186,7 +131,7 @@
       "name": "THIRD_EYE_ENABLED",
       "type": "BOOLEAN",
       "group": "ThirdEye",
-      "description": "Включение дисплея ThirdEye на шлеме */ \\",
+      "description": "Включение дисплея ThirdEye на шлеме \\",
       "defaultValue": true
     },
     {
@@ -198,7 +143,7 @@
       "name": "THIRD_EYE_TOP_COLUMN",
       "type": "ENUM",
       "group": "ThirdEye",
-      "description": "Верхнее поле дисплея ThirdEye */ \\",
+      "description": "Верхнее поле дисплея ThirdEye \\",
       "defaultValue": 1,
       "enumValues": {
         "0": "NONE",
@@ -222,7 +167,7 @@
       "name": "THIRD_EYE_BOTTOM_COLUMN",
       "type": "ENUM",
       "group": "ThirdEye",
-      "description": "Нижнее поле дисплея ThirdEye */ \\",
+      "description": "Нижнее поле дисплея ThirdEye \\",
       "defaultValue": 6,
       "enumValues": {
         "0": "NONE",
@@ -246,7 +191,7 @@
       "name": "THIRD_EYE_SHOW_NAMES",
       "type": "BOOLEAN",
       "group": "ThirdEye",
-      "description": "Показывать названия полей на дисплее */ \\",
+      "description": "Показывать названия полей на дисплее \\",
       "defaultValue": true
     },
     {
@@ -258,7 +203,7 @@
       "name": "THIRD_EYE_BRIGHTNESS",
       "type": "UINT8",
       "group": "ThirdEye",
-      "description": "Яркость дисплея ThirdEye */ \\",
+      "description": "Яркость дисплея ThirdEye \\",
       "min": 0,
       "max": 255,
       "defaultValue": 128
@@ -272,7 +217,7 @@
       "name": "THIRD_EYE_AUTO_CONNECT",
       "type": "BOOLEAN",
       "group": "ThirdEye",
-      "description": "Автоматическое подключение к ThirdEye */ \\",
+      "description": "Автоматическое подключение к ThirdEye \\",
       "defaultValue": true
     },
     {
@@ -284,7 +229,7 @@
       "name": "THIRD_EYE_RECONN_INTERVAL",
       "type": "UINT8",
       "group": "ThirdEye",
-      "description": "Интервал попыток переподключения */ \\",
+      "description": "Интервал попыток переподключения \\",
       "unit": "s",
       "min": 1,
       "max": 60,
@@ -299,7 +244,7 @@
       "name": "THIRD_EYE_TARGET_NAME",
       "type": "STRING",
       "group": "ThirdEye",
-      "description": "BLE имя устройства ThirdEye (префикс) */ \\",
+      "description": "BLE имя устройства ThirdEye (префикс) \\",
       "defaultValue": "ThirdEye_"
     },
     {
@@ -311,7 +256,7 @@
       "name": "THIRD_EYE_CONN_STATE",
       "type": "ENUM",
       "group": "ThirdEye",
-      "description": "Состояние подключения к ThirdEye */ \\",
+      "description": "Состояние подключения к ThirdEye \\",
       "enumValues": {
         "0": "DISCONNECTED",
         "1": "SCANNING",
@@ -326,26 +271,11 @@
       "readable": true,
       "writable": true,
       "persistent": true,
-      "name": "LED_PROXY_ENABLED",
+      "name": "EXT_PROXY_ENABLE",
       "type": "BOOLEAN",
-      "group": "\"LED Proxy\"",
-      "description": "Отправка данных на LED модуль */ \\",
+      "group": "Extentions",
+      "description": "Отправка данных на внешние модули \\",
       "defaultValue": true
-    },
-    {
-      "address": 97,
-      "size": 1,
-      "readable": true,
-      "writable": true,
-      "persistent": true,
-      "name": "LED_PROXY_SEND_RATE",
-      "type": "UINT8",
-      "group": "\"LED Proxy\"",
-      "description": "Частота отправки данных на LED модуль */ \\",
-      "unit": "Hz",
-      "min": 1,
-      "max": 120,
-      "defaultValue": 60
     },
     {
       "address": 98,
@@ -353,11 +283,11 @@
       "readable": true,
       "writable": true,
       "persistent": true,
-      "name": "LED_PROXY_PEER_MAC",
-      "type": "MAC",
-      "group": "\"LED Proxy\"",
-      "description": "MAC-адрес LED модуля */ \\",
-      "defaultValue": "FF:FF:FF:FF:FF:FF"
+      "name": "EXT_PROXY_PEER_GP",
+      "type": "STRING",
+      "group": "Extentions",
+      "description": "Идентификатор группы подключаемых внешних устройств \\",
+      "defaultValue": "EXT1"
     },
     {
       "address": 128,
@@ -365,69 +295,13 @@
       "readable": true,
       "writable": true,
       "persistent": true,
-      "name": "LED_EFFECT_BRIGHTNESS",
+      "name": "EXT_PROXY_GP_CAP",
       "type": "UINT8",
-      "group": "\"LED Effects\"",
-      "description": "Общая яркость LED лент */ \\",
+      "group": "Extentions",
+      "description": "Максимальное число подключаемых внешних устройств \\",
       "min": 0,
-      "max": 255,
-      "defaultValue": 128
-    },
-    {
-      "address": 129,
-      "size": 1,
-      "readable": true,
-      "writable": true,
-      "persistent": true,
-      "name": "LED_EFFECT_MODE",
-      "type": "ENUM",
-      "group": "\"LED Effects\"",
-      "description": "Режим эффекта LED лент */ \\",
-      "defaultValue": 1,
-      "enumValues": {
-        "0": "STATIC",
-        "1": "SPEED",
-        "2": "BATTERY",
-        "3": "RAINBOW"
-      }
-    },
-    {
-      "address": 130,
-      "size": 1,
-      "readable": true,
-      "writable": true,
-      "persistent": true,
-      "name": "LED_EFFECT_SPEED",
-      "type": "UINT8",
-      "group": "\"LED Effects\"",
-      "description": "Скорость анимации LED лент */ \\",
-      "min": 1,
-      "max": 255,
-      "defaultValue": 128
-    },
-    {
-      "address": 131,
-      "size": 4,
-      "readable": true,
-      "writable": true,
-      "persistent": true,
-      "name": "LED_COLOR_PRIMARY",
-      "type": "COLOR_RGBW",
-      "group": "\"LED Effects\"",
-      "description": "Основной цвет (RGBW) */ \\",
-      "defaultValue": "#FF000000"
-    },
-    {
-      "address": 135,
-      "size": 4,
-      "readable": true,
-      "writable": true,
-      "persistent": true,
-      "name": "LED_COLOR_SECONDARY",
-      "type": "COLOR_RGBW",
-      "group": "\"LED Effects\"",
-      "description": "Вторичный цвет (RGBW) */ \\",
-      "defaultValue": "#0000FF00"
+      "max": 3,
+      "defaultValue": 1
     },
     {
       "address": 160,
@@ -438,154 +312,18 @@
       "name": "UART_PROTOCOL",
       "type": "ENUM",
       "group": "UART",
-      "description": "Протокол обмена с контроллером колеса */ \\",
+      "description": "Протокол обмена с контроллером колеса \\",
       "defaultValue": 0,
       "enumValues": {
         "0": "MOCK",
         "1": "VETERAN"
       }
-    },
-    {
-      "address": 192,
-      "size": 2,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_SPEED",
-      "type": "UINT16",
-      "group": "Dynamic",
-      "description": "Текущая скорость */ \\",
-      "unit": "km/h",
-      "scale": 0.1
-    },
-    {
-      "address": 194,
-      "size": 2,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_PWM",
-      "type": "UINT16",
-      "group": "Dynamic",
-      "description": "Текущий ШИМ/мощность двигателя */ \\",
-      "unit": "%",
-      "scale": 0.1
-    },
-    {
-      "address": 196,
-      "size": 1,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_BATTERY",
-      "type": "UINT8",
-      "group": "Dynamic",
-      "description": "Уровень заряда батареи */ \\",
-      "unit": "%",
-      "min": 0,
-      "max": 100
-    },
-    {
-      "address": 197,
-      "size": 1,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_TEMP",
-      "type": "INT8",
-      "group": "Dynamic",
-      "description": "Температура контроллера */ \\",
-      "unit": "°C"
-    },
-    {
-      "address": 198,
-      "size": 2,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_VOLTAGE",
-      "type": "UINT16",
-      "group": "Dynamic",
-      "description": "Текущее напряжение батареи */ \\",
-      "unit": "V",
-      "scale": 0.01
-    },
-    {
-      "address": 200,
-      "size": 2,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_CURRENT",
-      "type": "UINT16",
-      "group": "Dynamic",
-      "description": "Текущий ток */ \\",
-      "unit": "A",
-      "scale": 0.01
-    },
-    {
-      "address": 202,
-      "size": 2,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_POWER",
-      "type": "UINT16",
-      "group": "Dynamic",
-      "description": "Текущая мощность */ \\",
-      "unit": "W",
-      "scale": 0.1
-    },
-    {
-      "address": 204,
-      "size": 4,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_DISTANCE",
-      "type": "UINT32",
-      "group": "Dynamic",
-      "description": "Общий пробег */ \\",
-      "unit": "km",
-      "scale": 0.001
-    },
-    {
-      "address": 208,
-      "size": 4,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_RIDE_TIME",
-      "type": "UINT32",
-      "group": "Dynamic",
-      "description": "Время поездки */ \\",
-      "unit": "s"
-    },
-    {
-      "address": 212,
-      "size": 4,
-      "readable": true,
-      "writable": false,
-      "persistent": false,
-      "name": "DYNAMIC_ERROR_FLAGS",
-      "type": "UINT32",
-      "group": "Dynamic",
-      "description": "Флаги ошибок */ \\",
-      "bitfield": true
     }
   ],
   "groups": [
     {
-      "name": "\"LED Effects\"",
-      "description": "Настройки группы \"LED Effects\""
-    },
-    {
-      "name": "\"LED Proxy\"",
-      "description": "Настройки группы \"LED Proxy\""
-    },
-    {
-      "name": "Dynamic",
-      "description": "Настройки группы Dynamic"
+      "name": "\"Extentions\"",
+      "description": "Настройки группы \"Extentions\""
     },
     {
       "name": "System",

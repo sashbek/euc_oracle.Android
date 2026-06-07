@@ -114,9 +114,9 @@ class ScanFragment : Fragment() {
                     (requireActivity() as MainActivity).showConfigFragment()
                 }
                 ConnectionState.DISCONNECTED -> {
+                    Log.d("ScanFragment", "Disconnected, restarting scan...")
                     isConnecting = false
                     binding.progressBar.isVisible = false
-                    // Перезапускаем сканирование при отключении
                     if (isResumed) {
                         viewModel.startScan()
                     }
